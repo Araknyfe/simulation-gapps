@@ -31,6 +31,7 @@ function fillBc(doc) {
     body.replaceText('{total_TTC}', prix.totalTTC); 
     body.replaceText('{etude_acompte_HT}', prix.acompteHT); 
     body.replaceText('{etude_acompte_pourcentage}', prix.acomptePct); 
+    body.replaceText('{etude_acompte_TTC}', prix.acompteTTC); 
     body.replaceText('{taux_tva}', '20'); 
     body.replaceText('{etude_reste_HT}', prix.resteHT); 
     body.replaceText('{etude_reste_TTC}', prix.resteTTC); 

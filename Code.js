@@ -23,7 +23,6 @@ function createBC() {
   //var SHEET_BC = SpreadsheetApp.openById('1DhKbZtB17PFW8oFCI1Mg8Z0d3RO6gbgnHM3fHwNAnd4').getSheets()[0];
   var DOC_MODEL = DocumentApp.openById('19WpV31e6Jms4z2o7pYuglKsbDlqHh9ZzcFus-UOAI9k');
  
-  
   getEtudeInfo();
   getAdminInfo();
   getPresidentInfo(SHEET_ADMIN);
