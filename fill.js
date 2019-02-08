@@ -1,9 +1,8 @@
-function fillRm(doc) {
+function fillBc(doc) {
     var body = doc.getBody();
     var header = doc.getHeader();
 
-    // SYNERG
-    body.replaceText('{je_ape}', ''); //TODO empty
+    //PRESIDENT
 
     if(president.sexe == 'M') {
         body.replaceText('{je_president_titre}', 'Mr');
@@ -20,52 +19,51 @@ function fillRm(doc) {
     // ETUDE
     body.replaceText('{etude_titre}', etude.nom);
     body.replaceText('{date_debut_simple}', etude.dateDebut);
-    body.replaceText('{etude_sujet}', etude.sujet); 
-    body.replaceText('{num_CE}', etude.ce); 
+    body.replaceText('{num_CC}', etude.cc); 
+    body.replaceText('{etude_duree_semaine}', etude.nbSemaine); 
+    body.replaceText('{etude_nombre_JEH}', etude.nbJEH); 
 
-    // RESPO PROJET
-    body.replaceText('{auteur_prenom}', responsableProjet.prenom);
-    body.replaceText('{auteur_nom}', responsableProjet.nom);
-    body.replaceText('{auteur_portable}', responsableProjet.portable);
-    body.replaceText('{auteur_email}', responsableProjet.email);
+    //PRIX
+    body.replaceText('{etude_montant_HT}', prix.montantHT); 
+    body.replaceText('{frais_HT}', prix.fraisDossier); 
+    body.replaceText('{total_HT}', prix.totalHT); 
+    body.replaceText('{total_TVA}', prix.totalTVA); 
+    body.replaceText('{total_TTC}', prix.totalTTC); 
+    body.replaceText('{etude_acompte_HT}', prix.acompteHT); 
+    body.replaceText('{etude_acompte_pourcentage}', prix.acomptePct); 
+    body.replaceText('{taux_tva}', '20'); 
+    body.replaceText('{etude_reste_HT}', prix.resteHT); 
+    body.replaceText('{etude_reste_TTC}', prix.resteTTC); 
 
-    // ETUDIANT 
-    body.replaceText('{num_avenant_etudiant}', rm.name);
-    body.replaceText('{etudiant_prenom}', etudiant.prenom);
-    body.replaceText('{etudiant_nom}', etudiant.nom);
-    body.replaceText('{etudiant_pronom}', etudiant.pronom);
 
-    header.replaceText('{etudiant_prenom}', etudiant.prenom);
-    header.replaceText('{etudiant_nom}', etudiant.nom);
+    //DATE CREATION
 
-    body.replaceText('{etudiant_adresse}', etudiant.adresse);
-    body.replaceText('{etudiant_code_postal}', etudiant.codePostal);
-    body.replaceText('{etudiant_ville}', etudiant.ville);
-    body.replaceText('{etudiant_portable}', etudiant.portable);
-    body.replaceText('{etudiant_mail}', etudiant.mail);
+    body.replaceText('{general_date_creation_simple}', getCreationDate()); 
 
-    body.replaceText('{etudiant_poste}', etudiant.poste);
-    body.replaceText('{etudiant_missions}', etudiant.descriptionMissions);
 
-    if(etudiant.sexe == 'M') {
-        body.replaceText('{etudiant_e}', '');
-    } else if(etudiant.sexe == 'F') {
-        body.replaceText('{etudiant_e}', 'e');
-    }
+    // RESPO COMMERCIAL
+    body.replaceText('{auteur_prenom}', responsableCommercial.prenom);
+    body.replaceText('{auteur_nom}', responsableCommercial.nom);
+    body.replaceText('{auteur_portable}', responsableCommercial.portable);
+    body.replaceText('{auteur_email}', responsableCommercial.email);
 
-    body.replaceText('{etudiant_date_fin_mission}', etude.semaineFin);
-    body.replaceText('{etudiant_remuneration_th_unit}', etudiant.montantJEH); 
-    body.replaceText('{etudiant_nb_JEH}', etudiant.nbJEH); 
-    body.replaceText('{etudiant_remuneration_th}', etudiant.remuneration); 
-
-    if(etudiant.nbJEH > 1) {
-        body.replaceText('{etudiant_nb_JEH_s}', 's');
-    } else {
-        body.replaceText('{etudiant_nb_JEH_s}', '');
-    }
 
     // CLIENT 
+    if(client.sexe == 'M') {
+        body.replaceText('{client_titre}', 'Mr');
+        body.replaceText('{client_fonction}', '');
+    } else if(client.sexe == 'F') {
+        body.replaceText('{client_titre}', 'Mme');
+        body.replaceText('{client_fonction}', 'e');
+    }
     body.replaceText('{client_societe}', etude.clientSociete); 
+    body.replaceText('{client_prenom}', client.prenom); 
+    body.replaceText('{client_societe}', client.nom); 
+    body.replaceText('{client_portable}', client.portable);
+    body.replaceText('{client_email}', client.email);
+    body.replaceText('{client_adresse}', client.adresse);
+    body.replaceText('{client_code_postal}', client.codePostal);
+    body.replaceText('{client_ville}', client.ville);
 }
 
 function fillURL(url) {

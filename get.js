@@ -5,85 +5,85 @@ function getEtudeInfo() {
   etude.nomFormate = formatNomEtude(etude.nom);
 
   etude.dateDebut = getCellValue(sheet, 0, 'B21');
+  etude.nbSemaine = getCellValue(sheet, 0, 'C22');
+  etude.nbJEH = getCellValue(sheet, 0, 'C28')
   etude.semaineFin = getCellValue(sheet, 0, 'B23');
 
-  etude.dateRef = Utilities.formatDate(etude.dateDebut, "GMT+2", "yyMMdd")
+  etude.dateRef = Utilities.formatDate(etude.dateDebut, "GMT+2", "yyMMdd");
 
   etude.dateDebut = Utilities.formatDate(etude.dateDebut, 'GMT+2', 'dd/MM/yyyy');
 
   etude.clientSociete = getCellValue(sheet, 0, 'F11');
 
-  etude.sujet = getCellValue(sheet, 0, 'B5');
+  etude.cc = getCellValue(sheet, 0, 'B4');
 
-  etude.ce = getCellValue(sheet, 0, 'B27');
+}
+
+function getPriceInfo() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  prix.totalHT = getCellValue(sheet, 5, 'B5');
+  prix.totalVA = getCellValue(sheet, 5, 'B6');
+  prix.totalTTC = getCellValue(sheet, 5, 'B7');
+  prix.montantHT = getCellValue(sheet, 5, 'B3');
+  prix.fraisDossier = getCellValue(sheet, 0, 'B30');
+  prix.acompteHT = getCellValue(sheet, 5, 'G4');
+  prix.acomptePct = getCellValue(sheet, 5, 'F4');
+  prix.acompteTTC = getCellValue(sheet, 5, 'H4');
+  prix.resteHT = getCellValue(sheet, 5, 'G16');
+  prix.resteTTC = getCellValue(sheet, 5, 'H16');
+}
+
+function getClientInfo() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  client.sexe = getCellValue(sheet, 0, 'N11');
+  client.prenom = getCellValue(sheet,0, 'D11');
+  client.nom = getCellValue(sheet,0, 'E11');
+  client.portable = getCellValue(sheet,0, 'L11');
+  client.email = getCellValue(sheet,0, 'M11');
+  // Did not find the adress, points to empty fields in the client infos on tab 0
+  client.adresse = getCellValue(sheet, 0, 'G11');
+  client.codePostal = getCellValue(sheet, 0, 'H11');
+  client.ville = getCellValue(sheet, 0, 'I11');
+
 }
 
 function getAdminInfo() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
   
-  responsableProjet.sexe = getCellValue(sheet, 0,'E10');
-  responsableProjet.nom = getCellValue(sheet, 0,'D10');
-  responsableProjet.prenom = getCellValue(sheet, 0,'B10');
-  responsableProjet.portable = getCellValue(sheet, 0,'F10');
-  responsableProjet.email = getCellValue(sheet, 0,'G10');
+  responsableCommercial.sexe = getCellValue(sheet, 0,'F9');
+  responsableCommercial.nom = getCellValue(sheet, 0,'D9');
+  responsableCommercial.prenom = getCellValue(sheet, 0,'E9');
+  responsableCommercial.portable = getCellValue(sheet, 0,'G9');
+  responsableCommercial.email = getCellValue(sheet, 0,'H9');
 }
 
 function getPresidentInfo(sheet) {
-  president.sexe = getCellValue(sheet, 0, 'E3');
-  president.nom = getCellValue(sheet, 0, 'B3');
-  president.prenom = getCellValue(sheet, 0, 'A3');
-  president.portable = getCellValue(sheet, 0, 'C3');
+  president.sexe = getCellValue(sheet, 0, 'F8');
+  president.nom = getCellValue(sheet, 0, 'D8');
+  president.prenom = getCellValue(sheet, 0, 'E8');
+  president.portable = getCellValue(sheet, 0, 'G8');
   president.email = getCellValue(sheet, 0, 'D3');
 }
 
-function getEtudiant(sheet) {
-  var sheetActive = SpreadsheetApp.getActiveSheet();
-
-  var range = sheetActive.getRange("B2:B10");
-  var IDEtudiant = range.getCell(1,1).getValue();
-
-  var rangePoste = sheetActive.getRange("B3:B10");
-  etudiant.poste = rangePoste.getCell(1,1).getValue();
-
-  var rangeDescription = sheetActive.getRange("B4:B10");
-  etudiant.descriptionMissions = rangeDescription.getCell(1,1).getValue();
-
-  var dataRange = sheet.getDataRange();
-  var values = dataRange.getValues();
-
-  for (var i = 0; i < values.length; i++) {
-    for (var j = 0; j < values[i].length; j++) {     
-      if (values[i][j] == IDEtudiant) {
-        var rowID = i+1;
-
-        etudiant.nom = getCellValue(sheet, 0, "F"+rowID);
-        etudiant.prenom = getCellValue(sheet, 0, "G"+rowID);
-        etudiant.sexe = getCellValue(sheet, 0, "E"+rowID);
-        etudiant.adresse = getCellValue(sheet, 0, "V"+rowID);
-        etudiant.codePostal = getCellValue(sheet, 0, "X"+rowID);
-        etudiant.ville = getCellValue(sheet, 0, "W"+rowID);
-        etudiant.portable = getCellValue(sheet, 0, "O"+rowID);
-        etudiant.mail = getCellValue(sheet, 0, "H"+rowID);
-      }
-    }    
-  }
-
-  if(etudiant.sexe  == 'M') {
-    etudiant.pronom = 'Il'; 
-  } else if (etudiant.sexe == 'F') {
-    etudiant.pronom = 'Elle';
-  }
-} 
-
-function getInfosEtudiant() {
-  var sheet = SpreadsheetApp.getActiveSheet();
+function getCreationDate() {
+  var creation = new Date();
+  var dd = creation.getDate();
+  var mm = creation.getMonth() + 1; 
+  var yyyy = creation.getFullYear();
   
-  var rangeMontantJEH = sheet.getRange("B8:B10");
-  var rangeNbJEH = sheet.getRange("B7:B9");
-  var rangeRemuneration = sheet.getRange("B9:B11");
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+  
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+  
+  creation = dd + '/' + mm + '/' + yyyy;
 
-  etudiant.montantJEH = rangeMontantJEH.getCell(1,1).getValue();
-  etudiant.nbJEH = rangeNbJEH.getCell(1, 1).getValue();
-  etudiant.remuneration = rangeRemuneration.getCell(1,1).getValue();
-
+  return creation;
 }
+
+
