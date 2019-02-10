@@ -26,7 +26,6 @@ function createBC() {
   getEtudeInfo();
   getAdminInfo();
   getPresidentInfo(SHEET_ADMIN);
-  getEtudiant(SHEET_ADHERENT);
   getClientInfo();
   getPriceInfo();
   getCreationDate();
